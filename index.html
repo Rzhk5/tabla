@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabla de Alimentos y Proteínas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h2 {
+      text-align: center;
+    }
+    table {
+      width: 95%;
+      margin: auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 8px;
+      text-align: center;
+    }
+    input {
+      width: 60px;
+      padding: 4px;
+    }
+    #totalProteinas {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Tabla de Alimentos y Proteínas</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Alimento</th>
+        <th>Proteínas por porción (g)</th>
+        <th>Porciones</th>
+        <th>Total por alimento (g)</th>
+      </tr>
+    </thead>
+    <tbody id="tablaAlimentos">
+      <tr><td>Pollo</td><td class="proteina">27</td><td><input type="number" value="0" min="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Huevo</td><td class="proteina">6</td><td><input type="number" value="0" min="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Carne de res</td><td class="proteina">26</td><td><input type="number" value="0" min="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Atún</td><td class="proteina">23</td><td><input type="number" value="0" min="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Hamburguesa</td><td class="proteina">25</td><td><input type="number" value="0" min="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+    </tbody>
+  </table>
+
+  <div id="totalProteinas">
+    <h3>Proteínas totales: <span id="resultado">0</span> gramos</h3>
+  </div>
+
+  <script>
+    function calcular() {
+      const filas = document.querySelectorAll("#tablaAlimentos tr");
+      let total = 0;
+
+      filas.forEach(fila => {
+        const proteina = parseFloat(fila.querySelector(".proteina").textContent);
+        const porcion = parseInt(fila.querySelector(".porcion").value) || 0;
+        const subtotal = proteina * porcion;
+        fila.querySelector(".subtotal").textContent = subtotal;
+        total += subtotal;
+      });
+
+      document.getElementById("resultado").textContent = total;
+    }
+  </script>
+
+</body>
+</html>
