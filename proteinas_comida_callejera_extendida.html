@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabla de Alimentos y Proteínas Extendida</title>
+  <style>
+    table {
+      width: 95%;
+      margin: 30px auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    h2, button, #totalProteinas {
+      text-align: center;
+    }
+    input {
+      width: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Tabla de Alimentos y Proteínas (Versión Extendida)</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Alimento</th>
+        <th>Proteínas por porción (g)</th>
+        <th>Porciones</th>
+        <th>Total por alimento (g)</th>
+      </tr>
+    </thead>
+    <tbody id="tablaAlimentos">
+      <!-- Lista de alimentos -->
+      <tr><td>Pollo</td><td class="proteina">27</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Huevo</td><td class="proteina">6</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Lentejas</td><td class="proteina">9</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Atún</td><td class="proteina">23</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Carne de res</td><td class="proteina">26</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Yogur griego</td><td class="proteina">10</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Frijoles</td><td class="proteina">8</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Alitas (fritas)</td><td class="proteina">20</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Boneless</td><td class="proteina">22</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Torta (de jamón/carne)</td><td class="proteina">18</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Hamburguesa</td><td class="proteina">25</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Hot dog</td><td class="proteina">12</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Tacos de bistec</td><td class="proteina">15</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Tacos al pastor</td><td class="proteina">13</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Quesadilla con pollo</td><td class="proteina">17</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Tamales</td><td class="proteina">7</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Elote con queso</td><td class="proteina">5</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Nachos con carne</td><td class="proteina">14</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Burrito</td><td class="proteina">20</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Pizza (rebanada)</td><td class="proteina">10</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Milanesa empanizada</td><td class="proteina">22</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Chicharrón prensado</td><td class="proteina">16</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Sopes con carne</td><td class="proteina">12</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Gorditas rellenas</td><td class="proteina">11</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Enchiladas</td><td class="proteina">13</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Chilaquiles con pollo</td><td class="proteina">15</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Tlayuda</td><td class="proteina">18</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Empanadas de carne</td><td class="proteina">14</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Tostadas de tinga</td><td class="proteina">12</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Molletes</td><td class="proteina">9</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+      <tr><td>Papas con salchicha</td><td class="proteina">6</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
+    </tbody>
+  </table>
+
+  <div id="totalProteinas">
+    <h3>Proteínas totales: <span id="resultado">0</span> gramos</h3>
+  </div>
+
+  <script>
+    function calcular() {
+      const filas = document.querySelectorAll("#tablaAlimentos tr");
+      let total = 0;
+
+      filas.forEach(fila => {
+        const proteina = parseFloat(fila.querySelector(".proteina").textContent);
+        const porcion = parseInt(fila.querySelector(".porcion").value) || 0;
+        const subtotal = proteina * porcion;
+        fila.querySelector(".subtotal").textContent = subtotal;
+        total += subtotal;
+      });
+
+      document.getElementById("resultado").textContent = total;
+    }
+  </script>
+
+</body>
+</html>
