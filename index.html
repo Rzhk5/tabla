@@ -2,75 +2,158 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Tabla de Alimentos y Proteínas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consumo Semanal de Alimentos</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+      background-color: #f9f9f9;
     }
-    h2 {
-      text-align: center;
+    h2, h3 {
+      color: #333;
     }
     table {
-      width: 95%;
-      margin: auto;
+      width: 100%;
       border-collapse: collapse;
+      margin-top: 15px;
+    }
+    table, th, td {
+      border: 1px solid #999;
     }
     th, td {
-      border: 1px solid #999;
       padding: 8px;
       text-align: center;
     }
-    input {
-      width: 60px;
-      padding: 4px;
+    th {
+      background-color: #e6e6e6;
     }
-    #totalProteinas {
-      text-align: center;
+    input[type="text"], input[type="number"], select {
+      padding: 5px;
+      margin: 5px 0;
+      width: 200px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #resultado {
       margin-top: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <h2>Tabla de Alimentos y Proteínas</h2>
+  <h2>Formulario de Consumo Semanal de Alimentos</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Alimento</th>
-        <th>Proteínas por porción (g)</th>
-        <th>Porciones</th>
-        <th>Total por alimento (g)</th>
-      </tr>
-    </thead>
-    <tbody id="tablaAlimentos">
-      <tr><td>Pollo</td><td class="proteina">27</td><td><input type="number" value="0" min="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Huevo</td><td class="proteina">6</td><td><input type="number" value="0" min="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Carne de res</td><td class="proteina">26</td><td><input type="number" value="0" min="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Atún</td><td class="proteina">23</td><td><input type="number" value="0" min="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Hamburguesa</td><td class="proteina">25</td><td><input type="number" value="0" min="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-    </tbody>
-  </table>
+  <form id="formConsumo">
+    <label>Nombre: <input type="text" name="nombre" required></label><br><br>
+    <label>Género:
+      <select name="genero" required>
+        <option value="">Selecciona...</option>
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+      </select>
+    </label><br><br>
+    <label>Edad: <input type="number" name="edad" min="15" max="18" required></label><br><br>
 
-  <div id="totalProteinas">
-    <h3>Proteínas totales: <span id="resultado">0</span> gramos</h3>
-  </div>
+    <h3>Selecciona los alimentos que consumes por semana</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Alimento</th>
+          <th>Kcal por porción</th>
+          <th>Porciones por semana</th>
+        </tr>
+      </thead>
+      <tbody id="tablaAlimentos">
+        <!-- Las filas serán generadas por JavaScript -->
+      </tbody>
+    </table><br>
+
+    <button type="button" onclick="calcular()">Calcular Kcal Semanales</button>
+  </form>
+
+  <h3 id="resultado"></h3>
 
   <script>
-    function calcular() {
-      const filas = document.querySelectorAll("#tablaAlimentos tr");
-      let total = 0;
+    const alimentos = [
+      { nombre: "Mango", kcal: 60 },
+      { nombre: "Manzana", kcal: 55 },
+      { nombre: "Naranja", kcal: 45 },
+      { nombre: "Pera", kcal: 50 },
+      { nombre: "Piña", kcal: 50 },
+      { nombre: "Aguacate", kcal: 160 },
+      { nombre: "Calabaza", kcal: 25 },
+      { nombre: "Chayote", kcal: 25 },
+      { nombre: "Chile", kcal: 30 },
+      { nombre: "Jitomate", kcal: 22 },
+      { nombre: "Lechuga", kcal: 15 },
+      { nombre: "Pepino", kcal: 16 },
+      { nombre: "Betabel", kcal: 43 },
+      { nombre: "Cebolla blanca", kcal: 40 },
+      { nombre: "Papa", kcal: 77 },
+      { nombre: "Zanahoria", kcal: 41 },
+      { nombre: "Leche de vaca", kcal: 150 },
+      { nombre: "Queso fresco", kcal: 100 },
+      { nombre: "Huevo de gallina", kcal: 70 },
+      { nombre: "Pollo entero", kcal: 239 },
+      { nombre: "Carne magra con hueso", kcal: 250 },
+      { nombre: "Salchicha de puerco", kcal: 200 },
+      { nombre: "Atún", kcal: 132 }
+    ];
 
-      filas.forEach(fila => {
-        const proteina = parseFloat(fila.querySelector(".proteina").textContent);
-        const porcion = parseInt(fila.querySelector(".porcion").value) || 0;
-        const subtotal = proteina * porcion;
-        fila.querySelector(".subtotal").textContent = subtotal;
-        total += subtotal;
+    const tabla = document.getElementById("tablaAlimentos");
+    alimentos.forEach((alimento, index) => {
+      const fila = document.createElement("tr");
+
+      fila.innerHTML = `
+        <td>${alimento.nombre}</td>
+        <td>${alimento.kcal}</td>
+        <td><input type="number" name="alimento${index}" value="0" min="0"></td>
+      `;
+
+      tabla.appendChild(fila);
+    });
+
+    function calcular() {
+      const form = document.forms["formConsumo"];
+      const genero = form["genero"].value;
+      const nombre = form["nombre"].value;
+      const edad = form["edad"].value;
+
+      if (!genero || !nombre || !edad) {
+        alert("Por favor llena todos los campos.");
+        return;
+      }
+
+      let totalKcal = 0;
+      alimentos.forEach((alimento, index) => {
+        const cantidad = parseInt(form[alimento${index}].value) || 0;
+        totalKcal += cantidad * alimento.kcal;
       });
 
-      document.getElementById("resultado").textContent = total;
+      let recomendado = genero === "masculino" ? 17500 : 14000;
+      let mensaje = <strong>${nombre}</strong>, de ${edad} años:<br>;
+      mensaje += Total de Kcal consumidas por semana: <strong>${totalKcal}</strong> kcal.<br>;
+
+      if (totalKcal < recomendado * 0.9) {
+        mensaje += "Consumo bajo: podrías necesitar más energía.";
+      } else if (totalKcal > recomendado * 1.1) {
+        mensaje += "Consumo alto: podrías estar excediendo tus necesidades.";
+      } else {
+        mensaje += "Consumo adecuado según tu género y edad.";
+      }
+
+      document.getElementById("resultado").innerHTML = mensaje;
     }
   </script>
 
