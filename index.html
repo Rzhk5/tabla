@@ -2,52 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Consumo Semanal de Alimentos</title>
+  <title>Formulario de Consumo Semanal de Alimentos</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f9f9f9;
-    }
-    h2, h3 {
-      color: #333;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-    table, th, td {
-      border: 1px solid #999;
-    }
-    th, td {
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #e6e6e6;
-    }
-    input[type="text"], input[type="number"], select {
-      padding: 5px;
-      margin: 5px 0;
-      width: 200px;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      border: none;
-      color: white;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    #resultado {
-      margin-top: 20px;
-      font-weight: bold;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f4f4f4; }
+    table, th, td { border: 1px solid #999; border-collapse: collapse; padding: 8px; }
+    th { background-color: #eee; }
+    input[type="number"] { width: 60px; }
+    button { margin-top: 15px; padding: 10px; }
   </style>
 </head>
 <body>
@@ -65,7 +26,7 @@
     </label><br><br>
     <label>Edad: <input type="number" name="edad" min="15" max="18" required></label><br><br>
 
-    <h3>Selecciona los alimentos que consumes por semana</h3>
+    <h3>Indica cuántas porciones consumes por semana de cada alimento</h3>
     <table>
       <thead>
         <tr>
@@ -75,9 +36,9 @@
         </tr>
       </thead>
       <tbody id="tablaAlimentos">
-        <!-- Las filas serán generadas por JavaScript -->
+        <!-- Filas insertadas con JavaScript -->
       </tbody>
-    </table><br>
+    </table>
 
     <button type="button" onclick="calcular()">Calcular Kcal Semanales</button>
   </form>
@@ -114,13 +75,11 @@
     const tabla = document.getElementById("tablaAlimentos");
     alimentos.forEach((alimento, index) => {
       const fila = document.createElement("tr");
-
       fila.innerHTML = `
         <td>${alimento.nombre}</td>
         <td>${alimento.kcal}</td>
-        <td><input type="number" name="alimento${index}" value="0" min="0"></td>
+        <td><input type="number" name="alimento${index}" min="0" value="0"></td>
       `;
-
       tabla.appendChild(fila);
     });
 
@@ -131,29 +90,29 @@
       const edad = form["edad"].value;
 
       if (!genero || !nombre || !edad) {
-        alert("Por favor llena todos los campos.");
+        alert("Por favor completa todos los datos.");
         return;
       }
 
       let totalKcal = 0;
       alimentos.forEach((alimento, index) => {
-        const cantidad = parseInt(form[alimento${index}].value) || 0;
-        totalKcal += cantidad * alimento.kcal;
+        const porciones = parseInt(form[`alimento${index}`].value) || 0;
+        totalKcal += porciones * alimento.kcal;
       });
 
-      let recomendado = genero === "masculino" ? 17500 : 14000;
-      let mensaje = <strong>${nombre}</strong>, de ${edad} años:<br>;
-      mensaje += Total de Kcal consumidas por semana: <strong>${totalKcal}</strong> kcal.<br>;
+      const recomendado = genero === "masculino" ? 17500 : 14000;
+      let resultado = `${nombre}, de ${edad} años:<br>`;
+      resultado += `Kcal consumidas por semana: <strong>${totalKcal}</strong> kcal.<br>`;
 
       if (totalKcal < recomendado * 0.9) {
-        mensaje += "Consumo bajo: podrías necesitar más energía.";
+        resultado += "Tu consumo es bajo.";
       } else if (totalKcal > recomendado * 1.1) {
-        mensaje += "Consumo alto: podrías estar excediendo tus necesidades.";
+        resultado += "Tu consumo es alto.";
       } else {
-        mensaje += "Consumo adecuado según tu género y edad.";
+        resultado += "Tu consumo es adecuado.";
       }
 
-      document.getElementById("resultado").innerHTML = mensaje;
+      document.getElementById("resultado").innerHTML = resultado;
     }
   </script>
 
