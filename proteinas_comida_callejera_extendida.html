@@ -2,93 +2,114 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Tabla de Alimentos y Proteínas Extendida</title>
+  <title>Consumo Semanal de Alimentos</title>
   <style>
-    table {
-      width: 95%;
-      margin: 30px auto;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
-    h2, button, #totalProteinas {
-      text-align: center;
-    }
-    input {
-      width: 60px;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+    th { background-color: #f2f2f2; }
+    input[type="number"] { width: 60px; }
   </style>
 </head>
 <body>
 
-  <h2>Tabla de Alimentos y Proteínas (Versión Extendida)</h2>
+  <h2>Formulario de Consumo Semanal de Alimentos</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Alimento</th>
-        <th>Proteínas por porción (g)</th>
-        <th>Porciones</th>
-        <th>Total por alimento (g)</th>
-      </tr>
-    </thead>
-    <tbody id="tablaAlimentos">
-      <!-- Lista de alimentos -->
-      <tr><td>Pollo</td><td class="proteina">27</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Huevo</td><td class="proteina">6</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Lentejas</td><td class="proteina">9</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Atún</td><td class="proteina">23</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Carne de res</td><td class="proteina">26</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Yogur griego</td><td class="proteina">10</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Frijoles</td><td class="proteina">8</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Alitas (fritas)</td><td class="proteina">20</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Boneless</td><td class="proteina">22</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Torta (de jamón/carne)</td><td class="proteina">18</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Hamburguesa</td><td class="proteina">25</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Hot dog</td><td class="proteina">12</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Tacos de bistec</td><td class="proteina">15</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Tacos al pastor</td><td class="proteina">13</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Quesadilla con pollo</td><td class="proteina">17</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Tamales</td><td class="proteina">7</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Elote con queso</td><td class="proteina">5</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Nachos con carne</td><td class="proteina">14</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Burrito</td><td class="proteina">20</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Pizza (rebanada)</td><td class="proteina">10</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Milanesa empanizada</td><td class="proteina">22</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Chicharrón prensado</td><td class="proteina">16</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Sopes con carne</td><td class="proteina">12</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Gorditas rellenas</td><td class="proteina">11</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Enchiladas</td><td class="proteina">13</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Chilaquiles con pollo</td><td class="proteina">15</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Tlayuda</td><td class="proteina">18</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Empanadas de carne</td><td class="proteina">14</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Tostadas de tinga</td><td class="proteina">12</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Molletes</td><td class="proteina">9</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-      <tr><td>Papas con salchicha</td><td class="proteina">6</td><td><input type="number" min="0" value="0" class="porcion" onchange="calcular()"></td><td class="subtotal">0</td></tr>
-    </tbody>
-  </table>
+  <form id="formConsumo">
+    <label>Nombre: <input type="text" name="nombre" required></label><br><br>
+    <label>Género:
+      <select name="genero" required>
+        <option value="">Selecciona...</option>
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+      </select>
+    </label><br><br>
+    <label>Edad: <input type="number" name="edad" min="15" max="18" required></label><br><br>
 
-  <div id="totalProteinas">
-    <h3>Proteínas totales: <span id="resultado">0</span> gramos</h3>
-  </div>
+    <h3>Selecciona los alimentos que consumes por semana</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Alimento</th>
+          <th>Kcal por porción</th>
+          <th>Porciones por semana</th>
+        </tr>
+      </thead>
+      <tbody id="tablaAlimentos">
+        <!-- Filas generadas dinámicamente -->
+      </tbody>
+    </table><br>
+
+    <button type="button" onclick="calcular()">Calcular Kcal Semanales</button>
+  </form>
+
+  <h3 id="resultado"></h3>
 
   <script>
-    function calcular() {
-      const filas = document.querySelectorAll("#tablaAlimentos tr");
-      let total = 0;
+    const alimentos = [
+      { nombre: "Mango", kcal: 60 },
+      { nombre: "Manzana", kcal: 55 },
+      { nombre: "Naranja", kcal: 45 },
+      { nombre: "Pera", kcal: 50 },
+      { nombre: "Piña", kcal: 50 },
+      { nombre: "Aguacate", kcal: 160 },
+      { nombre: "Calabaza", kcal: 25 },
+      { nombre: "Chayote", kcal: 25 },
+      { nombre: "Chile", kcal: 30 },
+      { nombre: "Jitomate", kcal: 22 },
+      { nombre: "Lechuga", kcal: 15 },
+      { nombre: "Pepino", kcal: 16 },
+      { nombre: "Betabel", kcal: 43 },
+      { nombre: "Cebolla blanca", kcal: 40 },
+      { nombre: "Papa", kcal: 77 },
+      { nombre: "Zanahoria", kcal: 41 },
+      { nombre: "Leche de vaca", kcal: 150 },
+      { nombre: "Queso fresco", kcal: 100 },
+      { nombre: "Huevo de gallina", kcal: 70 },
+      { nombre: "Pollo entero", kcal: 239 },
+      { nombre: "Carne magra con hueso", kcal: 250 },
+      { nombre: "Salchicha de puerco", kcal: 200 },
+      { nombre: "Atún", kcal: 132 }
+    ];
 
-      filas.forEach(fila => {
-        const proteina = parseFloat(fila.querySelector(".proteina").textContent);
-        const porcion = parseInt(fila.querySelector(".porcion").value) || 0;
-        const subtotal = proteina * porcion;
-        fila.querySelector(".subtotal").textContent = subtotal;
-        total += subtotal;
+    const tabla = document.getElementById("tablaAlimentos");
+    alimentos.forEach((alimento, index) => {
+      const fila = document.createElement("tr");
+
+      fila.innerHTML = `
+        <td>${alimento.nombre}</td>
+        <td>${alimento.kcal}</td>
+        <td><input type="number" name="alimento${index}" value="0" min="0"></td>
+      `;
+
+      tabla.appendChild(fila);
+    });
+
+    function calcular() {
+      const form = document.forms["formConsumo"];
+      const genero = form["genero"].value;
+      if (!genero) {
+        alert("Por favor selecciona tu género.");
+        return;
+      }
+
+      let totalKcal = 0;
+      alimentos.forEach((alimento, index) => {
+        const cantidad = parseInt(form[alimento${index}].value) || 0;
+        totalKcal += cantidad * alimento.kcal;
       });
 
-      document.getElementById("resultado").textContent = total;
+      let recomendado = genero === "masculino" ? 17500 : 14000;
+      let mensaje = Total de Kcal consumidas por semana: ${totalKcal} kcal.<br>;
+
+      if (totalKcal < recomendado * 0.9) {
+        mensaje += "Consumo bajo, podrías necesitar más energía.";
+      } else if (totalKcal > recomendado * 1.1) {
+        mensaje += "Consumo alto, podrías estar consumiendo más calorías de las recomendadas.";
+      } else {
+        mensaje += "Consumo adecuado para tu género y edad.";
+      }
+
+      document.getElementById("resultado").innerHTML = mensaje;
     }
   </script>
 
